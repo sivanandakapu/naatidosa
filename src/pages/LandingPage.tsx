@@ -374,9 +374,9 @@ const LandingPage = () => {
               >
                 <MapPin className="card-icon text-orange" size={32} />
                 <h3>Location</h3>
-                <p>1459 Yamato Rd, Boca Raton, FL 33431</p>
+                <p>2121, W Atlantic Avenue, Delray Beach, FL 33445</p>
                 <p className="detail">Florida, United States</p>
-                <a href="https://maps.google.com/?q=1459+Yamato+Rd,+Boca+Raton,+FL+33431" target="_blank" rel="noopener noreferrer" className="nav-link-v2">Open in Maps <ExternalLink size={16} /></a>
+                <a href="https://www.google.com/maps/place/2121+W+Atlantic+Ave,+Delray+Beach,+FL+33445" target="_blank" rel="noopener noreferrer" className="nav-link-v2">Open in Maps <ExternalLink size={16} /></a>
               </motion.div>
 
               <motion.div
@@ -412,7 +412,7 @@ const LandingPage = () => {
               className="visit-map-v2"
             >
               <iframe
-                src="https://maps.google.com/maps?q=1459%20Yamato%20Rd%2C%20Boca%20Raton%2C%20FL%2033431&z=15&output=embed"
+                src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=2121 W Atlantic Ave, Delray Beach, FL 33445&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
                 allowFullScreen={true}
                 loading="lazy"
                 title="Google Maps Location"
