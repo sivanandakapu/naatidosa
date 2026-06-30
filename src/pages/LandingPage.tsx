@@ -455,7 +455,7 @@ const LandingPage = () => {
                 <h3>Contact</h3>
                 <div className="footer-contact-info">
                   <p><Phone size={16} className="text-orange" /> +1 (561) 669-5387</p>
-                  <p><MapPin size={16} className="text-orange" /> 1459 Yamato Rd, Boca Raton, FL 33431</p>
+                  <p><MapPin size={16} className="text-orange" /> 2121, W Atlantic Avenue, Delray Beach, FL 33445</p>
                   <p><Clock size={16} className="text-orange" /> All Days: 6PM - 12AM</p>
                 </div>
               </div>
