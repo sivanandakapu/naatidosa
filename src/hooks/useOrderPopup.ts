@@ -9,7 +9,7 @@ export function useOrderPopup(autoOpenDelay?: number) {
 
     if (autoOpenDelay) {
       timerId = window.setTimeout(() => {
-         setShowPopup(false);
+         setShowPopup(true);
       }, autoOpenDelay);
     }
 
