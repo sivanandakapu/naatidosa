@@ -7,11 +7,11 @@ export function useOrderPopup(autoOpenDelay?: number) {
   useEffect(() => {
     let timerId: number | undefined;
 
-    // if (autoOpenDelay) {
-    //   timerId = window.setTimeout(() => {
-    //     setShowPopup(true);
-    //   }, autoOpenDelay);
-    // }
+    if (autoOpenDelay) {
+      timerId = window.setTimeout(() => {
+         setShowPopup(false);
+      }, autoOpenDelay);
+    }
 
     const handleOpenPopup = () => {
       setSelectedMenuItem(null);
