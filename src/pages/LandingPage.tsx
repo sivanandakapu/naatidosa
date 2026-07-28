@@ -82,7 +82,7 @@ const LandingPage = () => {
 
   return (
     <div className="landing-page">
-      {/* <OrderPopup
+      <OrderPopup
         show={showPopup}
         selectedMenuItem={selectedMenuItem}
         onClose={closePopup}
@@ -90,7 +90,7 @@ const LandingPage = () => {
           closePopup();
           scrollToSection('visit');
         }}
-      /> */}
+      />
 
       {/* Floating WhatsApp Button */}
       <a
