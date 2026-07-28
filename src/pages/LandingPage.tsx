@@ -7,7 +7,7 @@ import {
   MessageCircle, ArrowUp
 } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import OrderPopup from '../components/OrderPopup';
+// import OrderPopup from '../components/OrderPopup';
 import { useOrderPopup } from '../hooks/useOrderPopup';
 
 // Images
@@ -82,7 +82,7 @@ const LandingPage = () => {
 
   return (
     <div className="landing-page">
-      <OrderPopup
+      {/* <OrderPopup
         show={showPopup}
         selectedMenuItem={selectedMenuItem}
         onClose={closePopup}
@@ -90,7 +90,7 @@ const LandingPage = () => {
           closePopup();
           scrollToSection('visit');
         }}
-      />
+      /> */}
 
       {/* Floating WhatsApp Button */}
       <a
