@@ -258,6 +258,9 @@ const MenuPage = () => {
           </div>
         </div>
       </section>
+      <p style={{ textAlign: 'center', padding: '1rem' }}>
+        <a href="/menu%20images/photo-credits.html">Illustrative menu photos and credits</a>
+      </p>
 
       <style
         dangerouslySetInnerHTML={{
