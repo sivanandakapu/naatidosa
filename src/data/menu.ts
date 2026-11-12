@@ -21,7 +21,6 @@ const menuImageMap: Partial<Record<number, string>> = {
   105: menuImage('Set dosa.jpg'),
   106: menuImage('chessedosa.jpg'),
   107: menuImage('Onion Dosa.webp'),
-  108: menuImage('Cheese dosa.jpeg'),
 
   201: menuImage('Benne dosa.jpg'),
   202: menuImage('mysore masala DOSa.jpeg'),
@@ -63,6 +62,12 @@ const menuImageMap: Partial<Record<number, string>> = {
 
   1201: menuImage('mirchi bajji.jpg'),
   1202: menuImage('Egg Bajji.jpg'),
+  1203: menuImage('chitti-punugulu.jpg'),
+  1204: menuImage('aloo-bonda.jpg'),
+
+  1301: menuImage('plain-vada.jpg'),
+  1302: menuImage('sambar-vada.jpg'),
+  1303: menuImage('dahi-vada.jpg'),
 };
 
 export const menuCategories: MenuCategoryMap = {
@@ -74,7 +79,6 @@ export const menuCategories: MenuCategoryMap = {
     { id: 105, name: 'Set Dosa', desc: 'Soft, thick, and fluffy mini dosas served in a set of three. These are lighter and more bread-like compared to crispy dosas. Served with two house-made chutneys and sambar.', price: '$11.99', isVegan: true, isGlutenFree: true },
     { id: 106, name: 'Cheese Dosa', desc: 'Crispy dosa filled with melted cheese, creating a fusion-style dish that is crunchy outside and creamy inside. Served with two house-made chutneys and sambar.', price: '$13.49', isGlutenFree: true },
     { id: 107, name: 'Onion Dosa', desc: 'Crispy dosa topped with caramelized sautéed onions that add sweetness and crunch to every bite. Served with two house-made chutneys and sambar.', price: '$11.49', isVegan: true, isGlutenFree: true },
-    { id: 108, name: 'Paneer Dosa', desc: 'A stuffed dosa filled with seasoned Indian cottage cheese (paneer), sautéed with mild spices and herbs. Served with two house-made chutneys and sambar.', price: '$13.99', isGlutenFree: true },
   ],
   '🌟 KARNATAKA SPECIALS': [
     { id: 201, name: 'Benne Dosa', desc: 'A famous buttery dosa from Karnataka made with extra butter, giving it a rich aroma, crispy edges, and soft center. Served with two house-made chutneys and sambar.', price: '$12.99', isGlutenFree: true },
