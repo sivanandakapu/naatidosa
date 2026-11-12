@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  ArrowRight, Star, MapPin, MousePointerClick,
+  ArrowRight, MapPin, MousePointerClick,
   Clock, Calendar, Instagram,
   Facebook, Mail, Phone, ExternalLink,
   MessageCircle, ArrowUp
@@ -27,12 +27,6 @@ const heroSlides = [
   { src: '/menu%20images/dahi-puri.jpg', alt: 'Dahi puri chaat' },
   { src: '/menu%20images/chkn_momos.jpg', alt: 'Chicken momos' },
   { src: '/menu%20images/Bun_Maska.jpg', alt: 'Bun maska' },
-];
-
-const reviewsData = [
-  { id: 1, name: "Varun Reddy", text: "The most authentic Dosa I've had in Florida. The Mysore Masala is a must-try! Spicy and flavorful.", rating: 5, date: "2 days ago" },
-  { id: 2, name: "Sarah J.", text: "Softest Idlis ever! Their food truck is such a vibe in Delray Beach. Friendly service too!", rating: 5, date: "1 week ago" },
-  { id: 3, name: "Rahul S.", text: "The Benne Dosa took me straight back to Davangere. Absolutely delicious and crispy!", rating: 5, date: "3 days ago" },
 ];
 
 const LandingPage = () => {
@@ -280,33 +274,15 @@ const LandingPage = () => {
           >
             <span className="sub-tag accent-font">Guest Experiences</span>
             <h2 className="text-brown">What people are <span className="text-orange italic">saying</span></h2>
+            <div className="review-links">
+              <a className="cta-primary" href="https://www.google.com/maps/place/Naati+Dosa/@26.4602519,-80.0974219,17z/data=!3m1!4b1!4m6!3m5!1s0x88d8df0063a65953:0x328d57feef4216f3!8m2!3d26.4602519!4d-80.094847!16s%2Fg%2F11z92508m2" target="_blank" rel="noopener noreferrer">
+                Read reviews on Google <ExternalLink size={16} aria-hidden="true" />
+              </a>
+              <a className="review-write-link" href="https://g.page/r/CfMWQu_-V40yEAE/review" target="_blank" rel="noopener noreferrer">
+                Write a Google review
+              </a>
+            </div>
           </motion.div>
-
-          <div className="reviews-grid">
-            {reviewsData.map((rev, i) => (
-              <motion.div
-                key={rev.id}
-                className="review-card"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <div className="quote-icon">“</div>
-                <div className="rating-stars">
-                  {[...Array(rev.rating)].map((_, idx) => <Star key={idx} size={16} fill="var(--orange)" color="var(--orange)" />)}
-                </div>
-                <p className="review-text">"{rev.text}"</p>
-                <div className="review-footer">
-                  <div className="user-avatar">{rev.name.charAt(0)}</div>
-                  <div className="user-info">
-                    <strong>{rev.name}</strong>
-                    <span>{rev.date}</span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -701,16 +677,10 @@ const LandingPage = () => {
 
         /* Reviews Section */
         .reviews-section { padding: 120px 0; background: #fffcf8; }
-        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; margin-top: 4rem; }
-        .review-card { background: white; padding: 3.5rem 2.5rem 3rem; border-radius: 35px; box-shadow: 0 15px 45px rgba(107,58,31,0.05); position: relative; border: 1px solid rgba(107,58,31,0.03); }
-        .quote-icon { position: absolute; top: 20px; right: 30px; font-size: 5rem; font-family: var(--font-heading); color: var(--orange); opacity: 0.12; line-height: 1; pointer-events: none; }
-        .rating-stars { display: flex; gap: 4px; margin-bottom: 1.5rem; }
-        .review-text { font-size: 1.15rem; line-height: 1.8; color: var(--espresso); margin-bottom: 2rem; font-style: italic; font-family: var(--font-body); opacity: 0.9; }
-        .review-footer { display: flex; align-items: center; gap: 1rem; border-top: 1px solid rgba(107,58,31,0.08); padding-top: 1.8rem; }
-        .user-avatar { width: 50px; height: 50px; background: var(--brown); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-family: var(--font-heading); font-size: 1.2rem; }
-        .user-info { display: flex; flex-direction: column; line-height: 1.4; }
-        .user-info strong { color: var(--brown); font-size: 1.1rem; font-family: var(--font-heading); }
-        .user-info span { font-size: 0.9rem; opacity: 0.5; font-family: var(--font-body); }
+        .reviews-section .section-header { margin-bottom: 0; }
+        .review-links { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.75rem 1.5rem; }
+        .review-links a { min-height: 44px; }
+        .review-write-link { display: inline-flex; align-items: center; color: var(--brown); font-weight: 700; text-decoration: underline; }
 
         /* Updated Visit v2 */
         .visit-section { padding: 120px 0; }
@@ -999,26 +969,6 @@ const LandingPage = () => {
           .g-info { opacity: 1; transform: translateY(0); padding: 2.2rem 1.5rem 1.5rem; background: linear-gradient(transparent, rgba(62,31,0,0.85)); }
           .g-info h4 { font-size: 1.45rem; }
 
-
-          /* Reviews Mobile - Swipeable Cards */
-          .reviews-grid { 
-            display: flex; 
-            overflow-x: auto; 
-            scroll-snap-type: x mandatory; 
-            gap: 1.25rem; 
-            margin: 0 -1.5rem;
-            padding: 1rem 1.5rem 3.5rem;
-            scrollbar-width: none; 
-          }
-          .reviews-grid::-webkit-scrollbar { display: none; }
-          .review-card { 
-            min-width: 285px; 
-            max-width: 285px;
-            flex: 0 0 auto; 
-            scroll-snap-align: center;
-            padding: 2.5rem 1.8rem 2rem;
-            border-radius: 30px;
-          }
 
           /* Events Mobile */
           .events-grid { grid-template-columns: 1fr !important; gap: 3.5rem; text-align: center; }
