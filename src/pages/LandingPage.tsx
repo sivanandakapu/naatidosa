@@ -379,7 +379,8 @@ const LandingPage = () => {
                 <Clock className="card-icon text-orange" size={32} />
                 <h3>Trading Hours</h3>
                 <div className="hours-v2">
-                  <div className="h-row"><span>All Days</span> <strong>6PM - 12AM</strong></div>
+                  <div className="h-row"><span>Wednesday–Monday</span> <strong>6 PM–midnight</strong></div>
+                  <div className="h-row"><span>Tuesday</span> <strong>Closed</strong></div>
                 </div>
               </motion.div>
 
@@ -447,7 +448,7 @@ const LandingPage = () => {
                 <div className="footer-contact-info">
                   <p><Phone size={16} className="text-orange" /> +1 (561) 669-5387</p>
                   <p><MapPin size={16} className="text-orange" /> 2121, W Atlantic Avenue, Delray Beach, FL 33445</p>
-                  <p><Clock size={16} className="text-orange" /> All Days: 6PM - 12AM</p>
+                  <p><Clock size={16} className="text-orange" /> Wednesday–Monday, 6 PM–midnight. Closed Tuesday.</p>
                 </div>
               </div>
             </div>
