@@ -7,7 +7,7 @@ import {
   MessageCircle, ArrowUp
 } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
-// import OrderPopup from '../components/OrderPopup';
+import OrderPopup from '../components/OrderPopup';
 import { useOrderPopup } from '../hooks/useOrderPopup';
 
 // Images
@@ -38,7 +38,7 @@ const reviewsData = [
 const LandingPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { closePopup, selectedMenuItem, showPopup } = useOrderPopup(location.hash ? undefined : 1500);
+  const { closePopup, selectedMenuItem, showPopup } = useOrderPopup();
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [heroSlideIndex, setHeroSlideIndex] = useState(0);
 
