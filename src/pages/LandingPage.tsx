@@ -35,6 +35,8 @@ const googleReviewExcerpts = [
   { name: 'Sreejith Sreedharan', quote: 'Everything we ordered tasted authentic Bangalore/Karnataka style food.', rating: 5 },
 ];
 
+const eventBookingUrl = "https://wa.me/15616695387?text=I'd%20like%20to%20book%20an%20event%20with%20Naati%20Dosa";
+
 const LandingPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -94,7 +96,7 @@ const LandingPage = () => {
 
       {/* Floating WhatsApp Button */}
       <a
-        href="https://wa.me/15616695387?text=I'd%20like%20to%20book%20an%20event%20with%20Naati%20Dosa"
+        href={eventBookingUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="floating-whatsapp"
@@ -305,32 +307,11 @@ const LandingPage = () => {
       <section id="events" className="events-section bg-espresso text-cream">
         <div className="container events-grid">
           <div className="events-text">
-            <span className="sub-tag text-orange">Upcoming</span>
-            <h2 className="text-white">Join the <span className="text-orange italic">Celebration</span></h2>
-            <p>Catch us at local festivals, community markets, and private events across South Florida.</p>
-
-            <div className="event-list">
-              <div className="event-item">
-                <div className="event-date">
-                  <span className="day">15</span>
-                  <span className="month">MAR</span>
-                </div>
-                <div className="event-info">
-                  <h3>Delray Seafood Festival</h3>
-                  <p>Downtown Delray • 12PM - 8PM</p>
-                </div>
-              </div>
-              <div className="event-item">
-                <div className="event-date">
-                  <span className="day">22</span>
-                  <span className="month">MAR</span>
-                </div>
-                <div className="event-info">
-                  <h3>West Palm Beach GreenMarket</h3>
-                  <p>WPB Waterfront • 9AM - 1PM</p>
-                </div>
-              </div>
-            </div>
+            <h2 className="text-white">Book the <span className="text-orange italic">Naati Dosa Truck</span></h2>
+            <p>We bring freshly made South Indian dosas to your home or outdoor gathering. Book us for private parties, office lunches, or community gatherings.</p>
+            <a className="cta-primary event-booking-link" href={eventBookingUrl} target="_blank" rel="noopener noreferrer">
+              Inquire on WhatsApp <ArrowRight size={16} aria-hidden="true" />
+            </a>
           </div>
 
           <motion.div
@@ -680,14 +661,15 @@ const LandingPage = () => {
         /* Events Section */
         .events-section { padding: 120px 0; }
         .events-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
-        .event-list { margin-top: 4rem; display: flex; flex-direction: column; gap: 2.5rem; }
-        .event-item { display: flex; gap: 2rem; align-items: center; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(255,166,35,0.2); }
-        .event-item:last-child { border-bottom: none; }
-        .event-date { background: var(--orange); color: white; padding: 1.2rem; border-radius: 20px; text-align: center; min-width: 90px; }
-        .event-date .day { display: block; font-size: 2rem; font-weight: 900; line-height: 1; }
-        .event-date .month { display: block; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; margin-top: 5px; }
-        .event-info h3 { font-size: 1.8rem; margin-bottom: 0.5rem; color: white; font-family: var(--font-heading); }
-        .event-info p { opacity: 0.7; font-size: 1.1rem; }
+
+
+
+
+
+
+
+
+        .event-booking-link { margin-top: 1.5rem; min-height: 44px; }
         .events-image-wrap { position: relative; }
         .events-img { width: 100%; border-radius: 40px; height: 500px; object-fit: cover; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
 
@@ -994,10 +976,10 @@ const LandingPage = () => {
           /* Events Mobile */
           .events-grid { grid-template-columns: 1fr !important; gap: 3.5rem; text-align: center; }
           .events-text { display: flex; flex-direction: column; align-items: center; }
-          .event-list { margin-top: 2.5rem; gap: 1.5rem; width: 100%; }
-          .event-item { flex-direction: column; text-align: center; gap: 1rem; padding-bottom: 2rem; }
-          .event-date { min-width: 85px; padding: 0.8rem; border-radius: 18px; margin: 0 auto; }
-          .event-info h3 { font-size: 1.5rem; margin-bottom: 0.4rem; }
+
+
+
+
           .events-img { height: 320px; border-radius: 30px; }
 
           /* Visit Mobile */
