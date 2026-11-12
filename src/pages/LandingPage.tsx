@@ -29,6 +29,12 @@ const heroSlides = [
   { src: '/menu%20images/Bun_Maska.jpg', alt: 'Bun maska' },
 ];
 
+const googleReviewExcerpts = [
+  { name: 'Harvendra Singh', quote: 'Great Dosa', rating: 5 },
+  { name: 'Mac McCall', quote: 'Awesome addition to the dinner scene in Delray.', rating: 5 },
+  { name: 'Sreejith Sreedharan', quote: 'Everything we ordered tasted authentic Bangalore/Karnataka style food.', rating: 5 },
+];
+
 const LandingPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -274,6 +280,15 @@ const LandingPage = () => {
           >
             <span className="sub-tag accent-font">Guest Experiences</span>
             <h2 className="text-brown">What people are <span className="text-orange italic">saying</span></h2>
+            <ul className="google-review-cards" aria-label="Recent Google review excerpts">
+              {googleReviewExcerpts.map(({ name, quote, rating }) => (
+                <li key={name}>
+                  <span className="google-review-stars" role="img" aria-label={rating + ' out of 5 stars'}>{'★'.repeat(rating)}</span>
+                  <blockquote>“{quote}”</blockquote>
+                  <p>{name} · Google review</p>
+                </li>
+              ))}
+            </ul>
             <div className="review-links">
               <a className="cta-primary" href="https://www.google.com/maps/place/Naati+Dosa/@26.4602519,-80.0974219,17z/data=!3m1!4b1!4m6!3m5!1s0x88d8df0063a65953:0x328d57feef4216f3!8m2!3d26.4602519!4d-80.094847!16s%2Fg%2F11z92508m2" target="_blank" rel="noopener noreferrer">
                 Read reviews on Google <ExternalLink size={16} aria-hidden="true" />
@@ -678,6 +693,11 @@ const LandingPage = () => {
         /* Reviews Section */
         .reviews-section { padding: 120px 0; background: #fffcf8; }
         .reviews-section .section-header { margin-bottom: 0; }
+        .google-review-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr)); gap: 1rem; margin: 2rem 0 1.5rem; padding: 0; list-style: none; text-align: left; }
+        .google-review-cards li { background: white; border: 1px solid #eaded1; border-radius: 20px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+        .google-review-cards blockquote { margin: 0; flex: 1; }
+        .google-review-cards p { margin: 0; color: var(--brown); font-size: 0.9rem; }
+        .google-review-stars { color: #8a5100; letter-spacing: 0.12em; }
         .review-links { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.75rem 1.5rem; }
         .review-links a { min-height: 44px; }
         .review-write-link { display: inline-flex; align-items: center; color: var(--brown); font-weight: 700; text-decoration: underline; }
