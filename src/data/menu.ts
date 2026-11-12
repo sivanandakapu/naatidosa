@@ -13,9 +13,7 @@ const MENU_IMAGE_BASE_PATH = '/menu%20images';
 
 const menuImage = (fileName: string) => `${MENU_IMAGE_BASE_PATH}/${encodeURIComponent(fileName)}`;
 
-const DEFAULT_MENU_IMAGE = menuImage('Plain DOAsa.jpg');
-
-const menuImageMap: Record<number, string> = {
+const menuImageMap: Partial<Record<number, string>> = {
   101: menuImage('Plain DOAsa.jpg'),
   102: menuImage('Egg Dosa.jpeg'),
   103: menuImage('Ghee karam Dosa.jpeg'),
@@ -27,7 +25,6 @@ const menuImageMap: Record<number, string> = {
 
   201: menuImage('Benne dosa.jpg'),
   202: menuImage('mysore masala DOSa.jpeg'),
-  203: menuImage('Pudina DOsa.jpeg'),
 
   301: menuImage("Chef's Special Dosa.jpg"),
 
@@ -63,9 +60,6 @@ const menuImageMap: Record<number, string> = {
   1001: menuImage('chkn_momos.jpg'),
   1002: menuImage('veg momos.jpeg'),
 
-  1101: menuImage('chicken puff.jpeg'),
-  1102: menuImage('Egg-Puffs.webp'),
-  1103: menuImage('panner puff.jpeg'),
 
   1201: menuImage('mirchi bajji.jpg'),
   1202: menuImage('Egg Bajji.jpg'),
@@ -85,7 +79,6 @@ export const menuCategories: MenuCategoryMap = {
   '🌟 KARNATAKA SPECIALS': [
     { id: 201, name: 'Benne Dosa', desc: 'A famous buttery dosa from Karnataka made with extra butter, giving it a rich aroma, crispy edges, and soft center. Served with two house-made chutneys and sambar.', price: '$12.99', isGlutenFree: true },
     { id: 202, name: 'Mysore Masala Dosa', desc: 'A spicy variation of dosa spread with fiery red chili chutney and stuffed with lightly spiced mashed potato filling. Served with two house-made chutneys and sambar.', price: '$13.99', isGlutenFree: true },
-    { id: 203, name: 'Pudina Dosa', desc: 'A refreshing dosa infused with fresh mint leaves and mild spices, giving it a cool and aromatic flavor. Served with two house-made chutneys and sambar.', price: '$11.49', isGlutenFree: true },
   ],
   '👨🍳 CHEF’S SPECIAL DOSA': [
     { id: 301, name: "Chef's Special Dosa", desc: 'A rotating signature dosa created by our chef using seasonal ingredients and unique flavor combinations. Served with two house-made chutneys and sambar.', price: '$15.99', isGlutenFree: true },
@@ -95,6 +88,11 @@ export const menuCategories: MenuCategoryMap = {
     { id: 402, name: 'Ghee Pudi Thatte Idli', desc: 'Large steamed idli topped generously with spiced lentil powder and hot melted ghee, giving a rich, nutty, and spicy taste. Served with two house-made chutneys and sambar.', price: '$7.99', isGlutenFree: true },
     { id: 403, name: 'Ghee Karam Thatte Idli', desc: 'Soft large idli tossed in a spicy chili-garlic mix and finished with ghee for a bold and flavorful kick. Served with two house-made chutneys and sambar.', price: '$7.99', isGlutenFree: true },
     { id: 404, name: 'Sambar Thatte Idli', desc: 'Large soft idli soaked in warm lentil soup (sambar), making it soft, flavorful, and comforting. Served with two house-made chutneys.', price: '$7.49', isGlutenFree: true },
+  ],
+  'Medu Vada (Savory Lentil Fritters)': [
+    { id: 1301, name: 'Plain Vada (3 pieces)', desc: 'Three savory, doughnut-shaped fritters made with black lentils. Crisp outside and fluffy inside, served with two chutneys for dipping.', price: '$7.99' },
+    { id: 1302, name: 'Sambar Vada', desc: 'Savory lentil fritters soaked in sambar, a warm South Indian lentil and vegetable stew seasoned with spices.', price: '$7.99' },
+    { id: 1303, name: 'Dahi Vada', desc: 'Soft lentil fritters soaked in cool, creamy yogurt and finished with seasonings. Tangy and refreshing.', price: '$7.99' },
   ],
   '🔥 GUNTUR SPECIALS': [
     { id: 501, name: 'Chitti Idli', desc: 'Small bite-sized steamed rice cakes that are soft and fluffy, often enjoyed as a snack or street-style dish. Served with two house-made chutneys and sambar.', price: '$7.99', isVegan: true, isGlutenFree: true },
@@ -122,12 +120,9 @@ export const menuCategories: MenuCategoryMap = {
     { id: 1001, name: 'Chicken Momos (Steamed / Fried)', desc: 'Juicy chicken momos served your way: soft steamed or crispy fried, with house chili sauce.', price: '$11.99' },
     { id: 1002, name: 'Veg Momos', desc: 'Steamed dumplings filled with mixed vegetables and mild seasoning.', price: '$10.99' },
   ],
-  '🥐 PUFFS (Flaky Pastries)': [
-    { id: 1101, name: 'Chicken Puff', desc: 'Crispy, flaky pastry filled with spiced chicken filling.', price: '$4.49' },
-    { id: 1102, name: 'Egg Puff', desc: 'Golden baked pastry filled with boiled egg and aromatic spices.', price: '$3.99' },
-    { id: 1103, name: 'Paneer Puff', desc: 'Flaky pastry filled with seasoned paneer and mild spices.', price: '$4.49' },
-  ],
-  '🌶️ BAJJI (FRIED SNACKS)': [
+  'Fried Snacks (Bajji & Fritters)': [
+    { id: 1203, name: 'Chitti Punugulu', desc: 'Bite-sized fritters made from fermented rice and lentil batter. Golden and crunchy on the outside, soft inside, and served hot with chutneys.', price: '$9.99' },
+    { id: 1204, name: 'Aloo Bonda (5 pieces)', desc: 'Five balls of seasoned mashed potato dipped in chickpea-flour batter and fried until golden. Crispy outside and soft inside.', price: '$7.99' },
     { id: 1201, name: 'Mirchi Bajji (Regular / Stuffed / Cut)', desc: 'Green chilies dipped in spiced batter and deep fried, crispy on the outside with a mild spicy kick inside.', price: '$7.99', isVegan: true, isGlutenFree: true },
     { id: 1202, name: 'Egg Bajji', desc: 'Boiled egg coated in seasoned batter and deep fried until crispy and golden.', price: '$8.49', isGlutenFree: true },
   ],
@@ -151,12 +146,11 @@ const menuExplainers: Record<string, string> = {
   '🥤 DRINKS': 'Refreshing beverages made to perfectly complement our South Indian flavors.',
   '🥯 HYDERABADI SPECIAL': 'Soft bakery bun lightly toasted and generously spread with butter, traditionally served with hot tea.',
   '🥟 MOMOS (Steamed Dumplings)': 'Soft steamed dumplings filled with savory seasonings, a popular fusion snack.',
-  '🥐 PUFFS (Flaky Pastries)': 'Flaky, buttery pastries filled with savory spiced fillings, baked to golden perfection.',
-  '🌶️ BAJJI (FRIED SNACKS)': 'Classic deep-fried fritters, a staple South Indian street snack.',
+  'Fried Snacks (Bajji & Fritters)': 'Classic deep-fried fritters, a staple South Indian street snack.',
 };
 
 export function getMenuImage(itemId: number) {
-  return menuImageMap[itemId] || DEFAULT_MENU_IMAGE;
+  return menuImageMap[itemId];
 }
 
 export function getMenuCategorySlug(category: string) {
