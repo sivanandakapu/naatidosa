@@ -21,13 +21,6 @@ const g3 = '/images/g3.png';
 const logo01 = '/images/Naati Dosa Logo-01.png';
 const logo02 = '/images/Naati Dosa Logo-02.png';
 
-const heroSlides = [
-  { src: '/images/hero-dosa.jpg', alt: 'Signature dosa closeup' },
-  { src: '/menu%20images/Ghee%20pudi%20thatte%20idli.jpg', alt: 'Ghee pudi thatte idli' },
-  { src: '/menu%20images/dahi-puri.jpg', alt: 'Dahi puri chaat' },
-  { src: '/menu%20images/chkn_momos.jpg', alt: 'Chicken momos' },
-  { src: '/menu%20images/Bun_Maska.jpg', alt: 'Bun maska' },
-];
 
 const googleReviewExcerpts = [
   { name: 'Harvendra Singh', quote: 'Great Dosa', rating: 5 },
@@ -42,9 +35,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
   const { closePopup, selectedMenuItem, showPopup } = useOrderPopup();
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [heroSlideIndex, setHeroSlideIndex] = useState(0);
 
-  const activeHeroSlide = heroSlides[heroSlideIndex];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,13 +58,6 @@ const LandingPage = () => {
     return () => window.clearTimeout(timerId);
   }, [location.hash]);
 
-  useEffect(() => {
-    const slideTimer = window.setInterval(() => {
-      setHeroSlideIndex((prevIndex) => (prevIndex + 1) % heroSlides.length);
-    }, 5000);
-
-    return () => window.clearInterval(slideTimer);
-  }, []);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -117,18 +101,7 @@ const LandingPage = () => {
       {/* Hero Section */}
       <section id="home" className="hero-section bg-cream">
         <div className="hero-bg-media" aria-hidden="true">
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.img
-              key={activeHeroSlide.src}
-              src={activeHeroSlide.src}
-              alt={activeHeroSlide.alt}
-              className="hero-bg-image"
-              initial={{ opacity: 0, scale: 1.03 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.9, ease: 'easeInOut' }}
-            />
-          </AnimatePresence>
+          <img src="/images/hero-dosa.jpg" alt="" className="hero-bg-image" fetchPriority="high" />
         </div>
         <div className="hero-overlay"></div>
 
@@ -845,7 +818,7 @@ const LandingPage = () => {
 
         .mobile-order-actions { display: none; }
         @media (max-width: 768px) {
-          .has-mobile-actions { padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
+          .has-mobile-actions { overflow-x: clip; padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
           .mobile-order-actions {
             position: fixed; inset: auto 0 0; z-index: 999;
             display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px;
@@ -939,10 +912,10 @@ const LandingPage = () => {
           .about-section, .gallery-section, .events-section, .visit-section, .reviews-section { padding: 60px 0; }
 
           /* Hero Mobile Fix */
-          .hero-section { min-height: calc(100svh - 68px); }
+          .hero-section { min-height: clamp(360px, 61svh, 560px); }
           .hero-bg-image { object-position: center; }
-          .hero-overlay { background: linear-gradient(180deg, rgba(15, 10, 6, 0.02) 0%, rgba(15, 10, 6, 0.46) 48%, rgba(15, 10, 6, 0.84) 100%); }
-          .hero-container { grid-template-columns: 1fr; gap: 2rem; padding-bottom: 6rem; }
+          .hero-overlay { background: linear-gradient(180deg, rgba(15, 10, 6, 0.02) 0%, rgba(15, 10, 6, 0.12) 52%, rgba(15, 10, 6, 0.84) 100%); }
+          .hero-container { grid-template-columns: 1fr; gap: 2rem; padding-bottom: 2rem; }
           .hero-headline { font-size: 1.9rem; line-height: 0.95; }
 
           /* About Mobile */
