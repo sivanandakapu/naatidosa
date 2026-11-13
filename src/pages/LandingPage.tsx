@@ -93,8 +93,9 @@ const LandingPage = () => {
         }}
       />
 
-      <a href="tel:+15616695387" className="floating-call" aria-label="Call to Order at (561) 669-5387">
-        Call to Order <Phone size={18} aria-hidden="true" />
+      <a href="tel:+15616695387" className="floating-whatsapp floating-call" aria-label="Call to Order at (561) 669-5387">
+        <span className="wa-label">Call to Order</span>
+        <span className="wa-icon"><Phone size={32} color="white" aria-hidden="true" /></span>
       </a>
 
       {/* Floating WhatsApp Button */}
@@ -863,20 +864,6 @@ const LandingPage = () => {
           .has-mobile-actions .scroll-to-top { bottom: calc(204px + env(safe-area-inset-bottom)); }
         }
 
-        .floating-call {
-          position: fixed; right: 24px; bottom: 98px; z-index: 999;
-          display: inline-flex; align-items: center; gap: 8px; min-height: 44px;
-          padding: 8px 14px; border-radius: 50px; background: #6b3a1f;
-          color: white; text-decoration: none; font-weight: 700; font-size: .85rem;
-          box-shadow: 0 8px 20px rgba(0,0,0,.18);
-        }
-        .floating-call:hover { background: #4c2918; color: white; }
-        .scroll-to-top { bottom: 156px; }
-        @media (max-width: 768px) {
-          .floating-call { right: 14px; bottom: calc(146px + env(safe-area-inset-bottom)); }
-          .has-mobile-actions .scroll-to-top { bottom: calc(204px + env(safe-area-inset-bottom)); }
-        }
-
         /* Floating WhatsApp */
         .floating-whatsapp {
           position: fixed;
@@ -893,6 +880,10 @@ const LandingPage = () => {
           text-decoration: none;
           transition: 0.25s ease;
         }
+        .floating-whatsapp.floating-call { bottom: 100px; }
+        .floating-whatsapp { width: 200px; justify-content: space-between; }
+        .scroll-to-top { bottom: 176px; }
+        @media (prefers-reduced-motion: reduce) { .floating-whatsapp .wa-icon { animation: none; } }
         .wa-label {
           color: var(--espresso);
           font-weight: 700;
@@ -928,6 +919,9 @@ const LandingPage = () => {
             bottom: 14px; 
             box-shadow: 0 10px 22px rgba(0,0,0,0.18);
           }
+          .floating-whatsapp { width: auto; }
+          .has-mobile-actions .floating-whatsapp.floating-call { bottom: calc(150px + env(safe-area-inset-bottom)); }
+          .has-mobile-actions .scroll-to-top { bottom: calc(218px + env(safe-area-inset-bottom)); }
           .wa-label { display: none; }
           .wa-icon {
             width: 46px;
