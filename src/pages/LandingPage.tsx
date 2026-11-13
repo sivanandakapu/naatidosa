@@ -23,12 +23,12 @@ const logo02 = '/images/Naati Dosa Logo-02.png';
 
 
 const googleReviewExcerpts = [
-  { name: 'Harvendra Singh', quote: 'Great Dosa', rating: 5 },
-  { name: 'Mac McCall', quote: 'Awesome addition to the dinner scene in Delray.', rating: 5 },
-  { name: 'Sreejith Sreedharan', quote: 'Everything we ordered tasted authentic Bangalore/Karnataka style food.', rating: 5 },
-  { name: 'A S', quote: 'Fantastic food. Authentic.', rating: 5 },
-  { name: 'Amit Sharma', quote: 'Must try Mysore Dosa.', rating: 5 },
-  { name: 'REIKI CRYSTAL HEALING', quote: 'This was such a great find!', rating: 5 },
+  { name: 'Panda', quote: 'Masala Dosa is a must try every time we go. These guys are very friendly. They could have found better location though.', rating: 5 },
+  { name: 'Pawan Mudaliar', quote: null, rating: 5 },
+  { name: 'Jesika Kaul', quote: 'I finally got to try Naati Dosa after looking forward to it for such a long time, and it did not disappoint at all!', rating: 5 },
+  { name: 'Deep Prajapati', quote: 'Bestest south indian food in the town💯', rating: 5 },
+  { name: 'Arun Kumar Veeramalli', quote: 'nice place atmosphere is nice', rating: 5 },
+  { name: 'Shailesh Pandey', quote: 'You have to try the Ghee Pudi Dosa, Ghee Karam Dosa, and the Benne Dosa.', rating: 5 },
 ];
 
 const eventBookingUrl = "https://wa.me/15616695387?text=I'd%20like%20to%20book%20an%20event%20with%20Naati%20Dosa";
@@ -260,7 +260,7 @@ const LandingPage = () => {
               {googleReviewExcerpts.map(({ name, quote, rating }) => (
                 <li key={name}>
                   <span className="google-review-stars" role="img" aria-label={rating + ' out of 5 stars'}>{'★'.repeat(rating)}</span>
-                  <blockquote>“{quote}”</blockquote>
+                  {quote && <blockquote>“{quote}”</blockquote>}
                   <p>{name} · Google review</p>
                 </li>
               ))}
