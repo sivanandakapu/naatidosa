@@ -198,7 +198,8 @@ const Navbar = () => {
           position: sticky;
           top: 0;
           z-index: 1000;
-          background: #fff;
+          background: rgba(253, 246, 236, 0.94);
+          backdrop-filter: blur(8px);
           border-bottom: 1px solid rgba(107, 58, 31, 0.08);
           height: 85px;
           display: flex;
