@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowRight, MapPin, MousePointerClick,
@@ -6,7 +6,7 @@ import {
   Facebook, Mail, Phone, ExternalLink,
   MessageCircle, ArrowUp
 } from 'lucide-react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import OrderPopup from '../components/OrderPopup';
 import { useOrderPopup } from '../hooks/useOrderPopup';
 
@@ -38,6 +38,20 @@ const googleReviewExcerpts = [
 const eventBookingUrl = "https://wa.me/15616695387?text=I'd%20like%20to%20book%20an%20event%20with%20Naati%20Dosa";
 
 const LandingPage = () => {
+  const heroOrderRef = useRef<HTMLButtonElement>(null);
+  const [showMobileActions, setShowMobileActions] = useState(false);
+
+  useEffect(() => {
+    const button = heroOrderRef.current;
+    if (!button) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      setShowMobileActions(!entry.isIntersecting && entry.boundingClientRect.top < 68);
+    }, { rootMargin: '-68px 0px 0px 0px' });
+    observer.observe(button);
+    return () => observer.disconnect();
+  }, []);
+
   const location = useLocation();
   const navigate = useNavigate();
   const { closePopup, selectedMenuItem, showPopup } = useOrderPopup();
@@ -83,7 +97,7 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="landing-page">
+    <div className={showMobileActions ? "landing-page has-mobile-actions" : "landing-page"}>
       <OrderPopup
         show={showPopup}
         selectedMenuItem={selectedMenuItem}
@@ -106,6 +120,15 @@ const LandingPage = () => {
           <MessageCircle size={32} fill="white" color="var(--whatsapp)" />
         </div>
       </a>
+
+      {showMobileActions && (
+        <nav className="mobile-order-actions" aria-label="Quick ordering">
+          <Link to="/menu">View Menu</Link>
+          <button type="button" onClick={() => window.dispatchEvent(new Event('openOrderPopup'))}>
+            Order Online
+          </button>
+        </nav>
+      )}
 
       {/* Hero Section */}
       <section id="home" className="hero-section bg-cream">
@@ -148,7 +171,7 @@ const LandingPage = () => {
               transition={{ duration: 0.65, delay: 0.1 }}
               className="hero-cta-group"
             >
-              <button onClick={() => window.dispatchEvent(new Event('openOrderPopup'))} className="cta-primary">
+              <button ref={heroOrderRef} onClick={() => window.dispatchEvent(new Event('openOrderPopup'))} className="cta-primary">
                 Order online <ArrowRight size={16} />
               </button>
             </motion.div>
@@ -846,6 +869,27 @@ const LandingPage = () => {
           background: currentColor;
         }
         .popup-divider span { font-size: 0.8rem; font-weight: 900; font-family: var(--font-heading); color: var(--brown); }
+
+        .mobile-order-actions { display: none; }
+        @media (max-width: 768px) {
+          .has-mobile-actions { padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
+          .mobile-order-actions {
+            position: fixed; inset: auto 0 0; z-index: 999;
+            display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px;
+            padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+            background: #fdf6ec; border-top: 1px solid #e7d8c7;
+            box-shadow: 0 -4px 20px rgba(61, 43, 31, .12);
+          }
+          .mobile-order-actions > * {
+            display: grid; place-items: center; min-height: 48px; padding: 6px;
+            border: 1px solid #6b3a1f; border-radius: 9px;
+            font: inherit; font-weight: 800; text-align: center;
+            color: #6b3a1f; background: transparent; text-decoration: none;
+          }
+          .mobile-order-actions button { background: #6b3a1f; color: white; cursor: pointer; }
+          .has-mobile-actions .floating-whatsapp { bottom: calc(82px + env(safe-area-inset-bottom)); }
+          .has-mobile-actions .scroll-to-top { bottom: calc(154px + env(safe-area-inset-bottom)); }
+        }
 
         /* Floating WhatsApp */
         .floating-whatsapp {
