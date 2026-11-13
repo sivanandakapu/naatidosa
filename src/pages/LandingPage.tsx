@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowRight, MapPin, MousePointerClick,
@@ -38,20 +38,6 @@ const googleReviewExcerpts = [
 const eventBookingUrl = "https://wa.me/15616695387?text=I'd%20like%20to%20book%20an%20event%20with%20Naati%20Dosa";
 
 const LandingPage = () => {
-  const heroOrderRef = useRef<HTMLButtonElement>(null);
-  const [showMobileActions, setShowMobileActions] = useState(false);
-
-  useEffect(() => {
-    const button = heroOrderRef.current;
-    if (!button) return;
-
-    const observer = new IntersectionObserver(([entry]) => {
-      setShowMobileActions(!entry.isIntersecting && entry.boundingClientRect.top < 68);
-    }, { rootMargin: '-68px 0px 0px 0px' });
-    observer.observe(button);
-    return () => observer.disconnect();
-  }, []);
-
   const location = useLocation();
   const navigate = useNavigate();
   const { closePopup, selectedMenuItem, showPopup } = useOrderPopup();
@@ -97,7 +83,7 @@ const LandingPage = () => {
   };
 
   return (
-    <div className={showMobileActions ? "landing-page has-mobile-actions" : "landing-page"}>
+    <div className="landing-page has-mobile-actions">
       <OrderPopup
         show={showPopup}
         selectedMenuItem={selectedMenuItem}
@@ -121,14 +107,12 @@ const LandingPage = () => {
         </div>
       </a>
 
-      {showMobileActions && (
-        <nav className="mobile-order-actions" aria-label="Quick ordering">
-          <Link to="/menu">View Menu</Link>
-          <button type="button" onClick={() => window.dispatchEvent(new Event('openOrderPopup'))}>
-            Order Online
-          </button>
-        </nav>
-      )}
+      <nav className="mobile-order-actions" aria-label="Quick ordering">
+        <Link to="/menu">View Menu</Link>
+        <button type="button" onClick={() => window.dispatchEvent(new Event('openOrderPopup'))}>
+          Order Online
+        </button>
+      </nav>
 
       {/* Hero Section */}
       <section id="home" className="hero-section bg-cream">
@@ -165,16 +149,6 @@ const LandingPage = () => {
               </h1>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.1 }}
-              className="hero-cta-group"
-            >
-              <button ref={heroOrderRef} onClick={() => window.dispatchEvent(new Event('openOrderPopup'))} className="cta-primary">
-                Order online <ArrowRight size={16} />
-              </button>
-            </motion.div>
           </div>
         </div>
       </section>
@@ -611,7 +585,6 @@ const LandingPage = () => {
         .hero-headline .line-2 { display: block; }
         .hero-headline .line-1 { margin-bottom: 0.1rem; }
         .text-stroke { color: #fff; -webkit-text-stroke: 0; }
-        .hero-cta-group { display: flex; gap: 0.85rem; margin-bottom: 0; flex-wrap: wrap; }
         .cta-primary { background: #f59e0b; color: #1d1208; padding: 0.55rem 1rem; border-radius: 9px; font-weight: 800; font-size: 0.86rem; display: inline-flex; align-items: center; gap: 0.35rem; box-shadow: 0 8px 24px rgba(240,165,0,0.24); border: none; cursor: pointer; transition: 0.25s; text-transform: none; }
         .cta-primary:hover { background: #ffb93a; transform: translateY(-2px); }
 
@@ -971,7 +944,6 @@ const LandingPage = () => {
           .hero-overlay { background: linear-gradient(180deg, rgba(15, 10, 6, 0.02) 0%, rgba(15, 10, 6, 0.46) 48%, rgba(15, 10, 6, 0.84) 100%); }
           .hero-container { grid-template-columns: 1fr; gap: 2rem; padding-bottom: 6rem; }
           .hero-headline { font-size: 1.9rem; line-height: 0.95; }
-          .hero-cta-group { justify-content: flex-start; }
 
           /* About Mobile */
           .about-grid { grid-template-columns: 1fr !important; gap: 3rem; text-align: center; }
