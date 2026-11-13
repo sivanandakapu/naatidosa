@@ -155,7 +155,7 @@ const LandingPage = () => {
             <p className="about-desc">
               Founded on the belief that the best food comes from recipes passed down through generations.
               Our journey started in the heart of Karnataka, where the art of the perfect dosa is a daily ritual.
-              Now, we've brought those authentic flavors to the vibrant food scene in Boca Raton.
+              Now, we've brought those authentic flavors to the vibrant food scene in Delray Beach.
             </p>
             <div className="about-features">
               <div className="a-feat">
