@@ -156,17 +156,6 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Stats Ticker */}
-      <div className="hero-ticker bg-espresso">
-        <div className="ticker-inner ticker-scroll">
-          {[...Array(8)].map((_, i) => (
-            <span key={i} className="ticker-item">
-              CRISPY DOSA <span className="text-orange">✦</span> FRESH CHUTNEY <span className="text-orange">✦</span> AUTHENTIC SPICES <span className="text-orange">✦</span> BOCA RATON <span className="text-orange">✦</span>
-            </span>
-          ))}
-        </div>
-      </div>
-
       {/* About Section */}
       <section id="about" className="about-section bg-white overflow-hidden">
         <div className="container about-grid">
@@ -602,12 +591,6 @@ const LandingPage = () => {
         .hero-cta-group { display: flex; gap: 0.85rem; margin-bottom: 0; flex-wrap: wrap; }
         .cta-primary { background: #f59e0b; color: #1d1208; padding: 0.55rem 1rem; border-radius: 9px; font-weight: 800; font-size: 0.86rem; display: inline-flex; align-items: center; gap: 0.35rem; box-shadow: 0 8px 24px rgba(240,165,0,0.24); border: none; cursor: pointer; transition: 0.25s; text-transform: none; }
         .cta-primary:hover { background: #ffb93a; transform: translateY(-2px); }
-
-        /* Ticker */
-        .hero-ticker { padding: 1.5rem 0; overflow: hidden; white-space: nowrap; }
-        .ticker-inner { display: inline-block; animation: ticker-scroll 30s linear infinite; }
-        .ticker-item { color: white; font-family: var(--font-heading); font-weight: 800; margin-right: 3rem; font-size: 1.1rem; }
-        @keyframes ticker-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
         /* About */
         .about-section { padding: 140px 0; }
