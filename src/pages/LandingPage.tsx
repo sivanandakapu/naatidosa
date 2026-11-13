@@ -93,6 +93,10 @@ const LandingPage = () => {
         }}
       />
 
+      <a href="tel:+15616695387" className="floating-call" aria-label="Call to Order at (561) 669-5387">
+        Call to Order <Phone size={18} aria-hidden="true" />
+      </a>
+
       {/* Floating WhatsApp Button */}
       <a
         href={eventBookingUrl}
@@ -856,7 +860,21 @@ const LandingPage = () => {
           }
           .mobile-order-actions button { background: #6b3a1f; color: white; cursor: pointer; }
           .has-mobile-actions .floating-whatsapp { bottom: calc(82px + env(safe-area-inset-bottom)); }
-          .has-mobile-actions .scroll-to-top { bottom: calc(154px + env(safe-area-inset-bottom)); }
+          .has-mobile-actions .scroll-to-top { bottom: calc(204px + env(safe-area-inset-bottom)); }
+        }
+
+        .floating-call {
+          position: fixed; right: 24px; bottom: 98px; z-index: 999;
+          display: inline-flex; align-items: center; gap: 8px; min-height: 44px;
+          padding: 8px 14px; border-radius: 50px; background: #6b3a1f;
+          color: white; text-decoration: none; font-weight: 700; font-size: .85rem;
+          box-shadow: 0 8px 20px rgba(0,0,0,.18);
+        }
+        .floating-call:hover { background: #4c2918; color: white; }
+        .scroll-to-top { bottom: 156px; }
+        @media (max-width: 768px) {
+          .floating-call { right: 14px; bottom: calc(146px + env(safe-area-inset-bottom)); }
+          .has-mobile-actions .scroll-to-top { bottom: calc(204px + env(safe-area-inset-bottom)); }
         }
 
         /* Floating WhatsApp */
