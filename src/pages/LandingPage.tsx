@@ -7,7 +7,7 @@ import {
   MessageCircle, ArrowUp
 } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
-// import OrderPopup from '../components/OrderPopup';
+import OrderPopup from '../components/OrderPopup';
 import { useOrderPopup } from '../hooks/useOrderPopup';
 
 // Images
