@@ -238,15 +238,17 @@ const MenuPage = () => {
                           </div>
                         </div>
 
-                        <div className="menu-item-media">
-                          <img
-                            src={getMenuImage(item.id)}
-                            alt={item.name}
-                            onError={(event) => {
-                              event.currentTarget.src = '/menu%20images/Plain%20DOAsa.jpg';
-                            }}
-                          />
-                        </div>
+                        {getMenuImage(item.id) && (
+                          <div className="menu-item-media">
+                            <img
+                              src={getMenuImage(item.id)}
+                              alt={item.name}
+                              onError={(event) => {
+                                event.currentTarget.src = '/menu%20images/Plain%20DOAsa.jpg';
+                              }}
+                            />
+                          </div>
+                        )}
                       </button>
                     ))}
                   </div>
@@ -256,6 +258,9 @@ const MenuPage = () => {
           </div>
         </div>
       </section>
+      <p style={{ textAlign: 'center', padding: '1rem' }}>
+        <a href="/menu%20images/photo-credits.html">Illustrative menu photos and credits</a>
+      </p>
 
       <style
         dangerouslySetInnerHTML={{

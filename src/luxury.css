@@ -1,0 +1,19 @@
+/* Naati Dosa cinematic concept — isolated preview branch styling */
+:root{--cream:#0c0b0a;--white:#14120f;--espresso:#080807;--brown:#d4af68;--orange:#e3bd76;--black:#050505;--font-heading:'Cormorant Garamond',Georgia,serif}
+html{scroll-behavior:smooth}body{background:#090807!important;color:#efe4d0!important}
+.bg-cream,.bg-white,.bg-espresso,.bg-brown{background-color:#0e0d0b!important;color:#f0e5d3!important}
+.sticky-nav{background:rgba(8,8,7,.94)!important;border-bottom:1px solid rgba(213,175,104,.22)!important;backdrop-filter:blur(18px)!important}
+.sticky-nav a,.sticky-nav button,.nav-links a{color:#e9d6b5!important}
+.hero-section{min-height:92vh!important;background:#050505!important;display:flex!important;align-items:center!important}
+.hero-bg-media::after,.hero-overlay{background:linear-gradient(90deg,rgba(0,0,0,.92) 0%,rgba(0,0,0,.66) 43%,rgba(0,0,0,.24) 100%),linear-gradient(0deg,rgba(0,0,0,.65),transparent 42%)!important}
+.hero-bg-image{filter:saturate(.8) contrast(1.12) brightness(.76)!important}
+.hero-content{max-width:860px!important;text-align:left!important}
+.hero-badge{color:#e4bd79!important;letter-spacing:.28em!important;text-transform:uppercase!important;font-size:.72rem!important;border:1px solid rgba(225,186,112,.45)!important;background:rgba(0,0,0,.3)!important;padding:.6rem 1.1rem!important;border-radius:0!important}
+.hero-headline{font-family:'Cormorant Garamond',Georgia,serif!important;font-weight:500!important;font-size:clamp(3.8rem,8vw,8rem)!important;line-height:.91!important;letter-spacing:-.035em!important;text-shadow:0 4px 40px #000!important;margin:1.4rem 0 2rem!important}
+.hero-headline .line-1{color:#f6efdf!important}.hero-headline .line-2,.hero-headline .text-stroke{color:#dbb66f!important;-webkit-text-stroke:0!important}
+.cta-primary,.btn-order{background:linear-gradient(120deg,#b88a43,#ebcf91)!important;color:#15100a!important;border:1px solid #e8c583!important;border-radius:2px!important;text-transform:uppercase!important;letter-spacing:.14em!important;font-size:.8rem!important;font-weight:700!important;box-shadow:0 10px 45px rgba(185,136,62,.18)!important}
+section:not(.hero-section){border-top:1px solid rgba(212,175,104,.12)!important}section h2,section h3{font-family:'Cormorant Garamond',Georgia,serif!important;color:#e4c083!important;font-weight:500!important}section p{color:#d5c8b6!important}
+.hero-ticker{background:#1b160f!important;border-block:1px solid rgba(212,175,104,.35)!important;color:#e3bd76!important}
+.gallery-section img,.about-section img,.events-section img{filter:saturate(.8) contrast(1.08)!important;border:1px solid rgba(212,175,104,.25)!important}
+::selection{background:#c29b56;color:#090807}
+@media(max-width:700px){.hero-section{min-height:82vh!important}.hero-content{text-align:center!important}.hero-headline{font-size:clamp(3.2rem,13vw,5rem)!important}.hero-badge{letter-spacing:.12em!important}.hero-bg-media::after,.hero-overlay{background:linear-gradient(0deg,rgba(0,0,0,.91),rgba(0,0,0,.28))!important}}

@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  ArrowRight, Star, MapPin, MousePointerClick,
+  ArrowRight, MapPin, MousePointerClick,
   Clock, Calendar, Instagram,
   Facebook, Mail, Phone, ExternalLink,
   MessageCircle, ArrowUp
 } from 'lucide-react';
-import { useLocation, useNavigate } from 'react-router-dom';
-// import OrderPopup from '../components/OrderPopup';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import OrderPopup from '../components/OrderPopup';
 import { useOrderPopup } from '../hooks/useOrderPopup';
 
 // Images
@@ -21,28 +21,36 @@ const g3 = '/images/g3.png';
 const logo01 = '/images/Naati Dosa Logo-01.png';
 const logo02 = '/images/Naati Dosa Logo-02.png';
 
-const heroSlides = [
-  { src: '/images/hero-dosa.jpg', alt: 'Signature dosa closeup' },
-  { src: '/menu%20images/Ghee%20pudi%20thatte%20idli.jpg', alt: 'Ghee pudi thatte idli' },
-  { src: '/menu%20images/dahi-puri.jpg', alt: 'Dahi puri chaat' },
-  { src: '/menu%20images/chkn_momos.jpg', alt: 'Chicken momos' },
-  { src: '/menu%20images/Bun_Maska.jpg', alt: 'Bun maska' },
+
+const googleReviewExcerpts = [
+  { name: 'Panda', quote: 'Masala Dosa is a must try every time we go. These guys are very friendly. They could have found better location though.', rating: 5 },
+  { name: 'Pawan Mudaliar', quote: null, rating: 5 },
+  { name: 'Jesika Kaul', quote: 'I finally got to try Naati Dosa after looking forward to it for such a long time, and it did not disappoint at all!', rating: 5 },
+  { name: 'Deep Prajapati', quote: 'Bestest south indian food in the town💯', rating: 5 },
+  { name: 'Arun Kumar Veeramalli', quote: 'nice place atmosphere is nice', rating: 5 },
+  { name: 'Shailesh Pandey', quote: 'You have to try the Ghee Pudi Dosa, Ghee Karam Dosa, and the Benne Dosa.', rating: 5 },
 ];
 
-const reviewsData = [
-  { id: 1, name: "Varun Reddy", text: "The most authentic Dosa I've had in Florida. The Mysore Masala is a must-try! Spicy and flavorful.", rating: 5, date: "2 days ago" },
-  { id: 2, name: "Sarah J.", text: "Softest Idlis ever! Their food truck is such a vibe in Delray Beach. Friendly service too!", rating: 5, date: "1 week ago" },
-  { id: 3, name: "Rahul S.", text: "The Benne Dosa took me straight back to Davangere. Absolutely delicious and crispy!", rating: 5, date: "3 days ago" },
-];
+const eventBookingUrl = "https://wa.me/15616695387?text=I'd%20like%20to%20book%20an%20event%20with%20Naati%20Dosa";
 
 const LandingPage = () => {
+  const reviewsRef = useRef<HTMLUListElement>(null);
+
+  const browseReviews = (direction: -1 | 1) => {
+    const row = reviewsRef.current;
+    const nextCard = row?.children[1];
+    if (!row || !nextCard) return;
+
+    const cardStep = nextCard.getBoundingClientRect().left - row.children[0].getBoundingClientRect().left;
+    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
+    row.scrollBy({ left: direction * cardStep, behavior });
+  };
+
   const location = useLocation();
   const navigate = useNavigate();
-  const { closePopup, selectedMenuItem, showPopup } = useOrderPopup(location.hash ? undefined : 1500);
+  const { closePopup, selectedMenuItem, showPopup } = useOrderPopup();
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [heroSlideIndex, setHeroSlideIndex] = useState(0);
 
-  const activeHeroSlide = heroSlides[heroSlideIndex];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -65,13 +73,6 @@ const LandingPage = () => {
     return () => window.clearTimeout(timerId);
   }, [location.hash]);
 
-  useEffect(() => {
-    const slideTimer = window.setInterval(() => {
-      setHeroSlideIndex((prevIndex) => (prevIndex + 1) % heroSlides.length);
-    }, 5000);
-
-    return () => window.clearInterval(slideTimer);
-  }, []);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -81,7 +82,7 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="landing-page">
+    <div className="landing-page has-mobile-actions">
       <OrderPopup
         show={showPopup}
         selectedMenuItem={selectedMenuItem}
@@ -92,9 +93,14 @@ const LandingPage = () => {
         }}
       />
 
+      <a href="tel:+15616695387" className="floating-whatsapp floating-call" aria-label="Call to Order at (561) 669-5387">
+        <span className="wa-label">Call to Order</span>
+        <span className="wa-icon"><Phone size={32} color="white" aria-hidden="true" /></span>
+      </a>
+
       {/* Floating WhatsApp Button */}
       <a
-        href="https://wa.me/15616695387?text=I'd%20like%20to%20book%20an%20event%20with%20Naati%20Dosa"
+        href={eventBookingUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="floating-whatsapp"
@@ -105,21 +111,17 @@ const LandingPage = () => {
         </div>
       </a>
 
+      <nav className="mobile-order-actions" aria-label="Quick ordering">
+        <Link to="/menu">View Menu</Link>
+        <button type="button" onClick={() => window.dispatchEvent(new Event('openOrderPopup'))}>
+          Order Online
+        </button>
+      </nav>
+
       {/* Hero Section */}
       <section id="home" className="hero-section bg-cream">
         <div className="hero-bg-media" aria-hidden="true">
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.img
-              key={activeHeroSlide.src}
-              src={activeHeroSlide.src}
-              alt={activeHeroSlide.alt}
-              className="hero-bg-image"
-              initial={{ opacity: 0, scale: 1.03 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.9, ease: 'easeInOut' }}
-            />
-          </AnimatePresence>
+          <img src="/images/hero-dosa.jpg" alt="" className="hero-bg-image" fetchPriority="high" />
         </div>
         <div className="hero-overlay"></div>
 
@@ -140,30 +142,9 @@ const LandingPage = () => {
               </h1>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.1 }}
-              className="hero-cta-group"
-            >
-              <button onClick={() => window.dispatchEvent(new Event('openOrderPopup'))} className="cta-primary">
-                Order online <ArrowRight size={16} />
-              </button>
-            </motion.div>
           </div>
         </div>
       </section>
-
-      {/* Stats Ticker */}
-      <div className="hero-ticker bg-espresso">
-        <div className="ticker-inner ticker-scroll">
-          {[...Array(8)].map((_, i) => (
-            <span key={i} className="ticker-item">
-              CRISPY DOSA <span className="text-orange">✦</span> FRESH CHUTNEY <span className="text-orange">✦</span> AUTHENTIC SPICES <span className="text-orange">✦</span> BOCA RATON <span className="text-orange">✦</span>
-            </span>
-          ))}
-        </div>
-      </div>
 
       {/* About Section */}
       <section id="about" className="about-section bg-white overflow-hidden">
@@ -194,7 +175,7 @@ const LandingPage = () => {
             <p className="about-desc">
               Founded on the belief that the best food comes from recipes passed down through generations.
               Our journey started in the heart of Karnataka, where the art of the perfect dosa is a daily ritual.
-              Now, we've brought those authentic flavors to the vibrant food scene in Boca Raton.
+              Now, we've brought those authentic flavors to the vibrant food scene in Delray Beach.
             </p>
             <div className="about-features">
               <div className="a-feat">
@@ -280,33 +261,28 @@ const LandingPage = () => {
           >
             <span className="sub-tag accent-font">Guest Experiences</span>
             <h2 className="text-brown">What people are <span className="text-orange italic">saying</span></h2>
+            <ul ref={reviewsRef} className="google-review-cards" aria-label="Google review excerpts" tabIndex={0}>
+              {googleReviewExcerpts.map(({ name, quote, rating }) => (
+                <li key={name}>
+                  <span className="google-review-stars" role="img" aria-label={rating + ' out of 5 stars'}>{'★'.repeat(rating)}</span>
+                  {quote && <blockquote>“{quote}”</blockquote>}
+                  <p>{name} · Google review</p>
+                </li>
+              ))}
+            </ul>
+            <div className="review-browse">
+              <button type="button" onClick={() => browseReviews(-1)} aria-label="Previous review">←</button>
+              <button type="button" onClick={() => browseReviews(1)} aria-label="Next review">→</button>
+            </div>
+            <div className="review-links">
+              <a className="cta-primary" href="https://www.google.com/maps/place/Naati+Dosa/@26.4602519,-80.0974219,17z/data=!3m1!4b1!4m6!3m5!1s0x88d8df0063a65953:0x328d57feef4216f3!8m2!3d26.4602519!4d-80.094847!16s%2Fg%2F11z92508m2" target="_blank" rel="noopener noreferrer">
+                Read reviews on Google <ExternalLink size={16} aria-hidden="true" />
+              </a>
+              <a className="review-write-link" href="https://g.page/r/CfMWQu_-V40yEAE/review" target="_blank" rel="noopener noreferrer">
+                Write a Google review
+              </a>
+            </div>
           </motion.div>
-
-          <div className="reviews-grid">
-            {reviewsData.map((rev, i) => (
-              <motion.div
-                key={rev.id}
-                className="review-card"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <div className="quote-icon">“</div>
-                <div className="rating-stars">
-                  {[...Array(rev.rating)].map((_, idx) => <Star key={idx} size={16} fill="var(--orange)" color="var(--orange)" />)}
-                </div>
-                <p className="review-text">"{rev.text}"</p>
-                <div className="review-footer">
-                  <div className="user-avatar">{rev.name.charAt(0)}</div>
-                  <div className="user-info">
-                    <strong>{rev.name}</strong>
-                    <span>{rev.date}</span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -314,32 +290,11 @@ const LandingPage = () => {
       <section id="events" className="events-section bg-espresso text-cream">
         <div className="container events-grid">
           <div className="events-text">
-            <span className="sub-tag text-orange">Upcoming</span>
-            <h2 className="text-white">Join the <span className="text-orange italic">Celebration</span></h2>
-            <p>Catch us at local festivals, community markets, and private events across South Florida.</p>
-
-            <div className="event-list">
-              <div className="event-item">
-                <div className="event-date">
-                  <span className="day">15</span>
-                  <span className="month">MAR</span>
-                </div>
-                <div className="event-info">
-                  <h3>Delray Seafood Festival</h3>
-                  <p>Downtown Delray • 12PM - 8PM</p>
-                </div>
-              </div>
-              <div className="event-item">
-                <div className="event-date">
-                  <span className="day">22</span>
-                  <span className="month">MAR</span>
-                </div>
-                <div className="event-info">
-                  <h3>West Palm Beach GreenMarket</h3>
-                  <p>WPB Waterfront • 9AM - 1PM</p>
-                </div>
-              </div>
-            </div>
+            <h2 className="text-white">Book the <span className="text-orange italic">Naati Dosa Truck</span></h2>
+            <p>We bring freshly made South Indian dosas to your home or outdoor gathering. Book us for private parties, office lunches, or community gatherings.</p>
+            <a className="cta-primary event-booking-link" href={eventBookingUrl} target="_blank" rel="noopener noreferrer">
+              Inquire on WhatsApp <ArrowRight size={16} aria-hidden="true" />
+            </a>
           </div>
 
           <motion.div
@@ -388,7 +343,8 @@ const LandingPage = () => {
                 <Clock className="card-icon text-orange" size={32} />
                 <h3>Trading Hours</h3>
                 <div className="hours-v2">
-                  <div className="h-row"><span>All Days</span> <strong>6PM - 12AM</strong></div>
+                  <div className="h-row"><span>Wednesday–Monday</span> <strong>6 PM–midnight</strong></div>
+                  <div className="h-row"><span>Tuesday</span> <strong>Closed</strong></div>
                 </div>
               </motion.div>
 
@@ -456,7 +412,7 @@ const LandingPage = () => {
                 <div className="footer-contact-info">
                   <p><Phone size={16} className="text-orange" /> +1 (561) 669-5387</p>
                   <p><MapPin size={16} className="text-orange" /> 2121, W Atlantic Avenue, Delray Beach, FL 33445</p>
-                  <p><Clock size={16} className="text-orange" /> All Days: 6PM - 12AM</p>
+                  <p><Clock size={16} className="text-orange" /> Wednesday–Monday, 6 PM–midnight. Closed Tuesday.</p>
                 </div>
               </div>
             </div>
@@ -626,15 +582,8 @@ const LandingPage = () => {
         .hero-headline .line-2 { display: block; }
         .hero-headline .line-1 { margin-bottom: 0.1rem; }
         .text-stroke { color: #fff; -webkit-text-stroke: 0; }
-        .hero-cta-group { display: flex; gap: 0.85rem; margin-bottom: 0; flex-wrap: wrap; }
         .cta-primary { background: #f59e0b; color: #1d1208; padding: 0.55rem 1rem; border-radius: 9px; font-weight: 800; font-size: 0.86rem; display: inline-flex; align-items: center; gap: 0.35rem; box-shadow: 0 8px 24px rgba(240,165,0,0.24); border: none; cursor: pointer; transition: 0.25s; text-transform: none; }
         .cta-primary:hover { background: #ffb93a; transform: translateY(-2px); }
-
-        /* Ticker */
-        .hero-ticker { padding: 1.5rem 0; overflow: hidden; white-space: nowrap; }
-        .ticker-inner { display: inline-block; animation: ticker-scroll 30s linear infinite; }
-        .ticker-item { color: white; font-family: var(--font-heading); font-weight: 800; margin-right: 3rem; font-size: 1.1rem; }
-        @keyframes ticker-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
         /* About */
         .about-section { padding: 140px 0; }
@@ -688,29 +637,32 @@ const LandingPage = () => {
         /* Events Section */
         .events-section { padding: 120px 0; }
         .events-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
-        .event-list { margin-top: 4rem; display: flex; flex-direction: column; gap: 2.5rem; }
-        .event-item { display: flex; gap: 2rem; align-items: center; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(255,166,35,0.2); }
-        .event-item:last-child { border-bottom: none; }
-        .event-date { background: var(--orange); color: white; padding: 1.2rem; border-radius: 20px; text-align: center; min-width: 90px; }
-        .event-date .day { display: block; font-size: 2rem; font-weight: 900; line-height: 1; }
-        .event-date .month { display: block; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; margin-top: 5px; }
-        .event-info h3 { font-size: 1.8rem; margin-bottom: 0.5rem; color: white; font-family: var(--font-heading); }
-        .event-info p { opacity: 0.7; font-size: 1.1rem; }
+
+
+
+
+
+
+
+
+        .event-booking-link { margin-top: 1.5rem; min-height: 44px; }
         .events-image-wrap { position: relative; }
         .events-img { width: 100%; border-radius: 40px; height: 500px; object-fit: cover; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
 
         /* Reviews Section */
         .reviews-section { padding: 120px 0; background: #fffcf8; }
-        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; margin-top: 4rem; }
-        .review-card { background: white; padding: 3.5rem 2.5rem 3rem; border-radius: 35px; box-shadow: 0 15px 45px rgba(107,58,31,0.05); position: relative; border: 1px solid rgba(107,58,31,0.03); }
-        .quote-icon { position: absolute; top: 20px; right: 30px; font-size: 5rem; font-family: var(--font-heading); color: var(--orange); opacity: 0.12; line-height: 1; pointer-events: none; }
-        .rating-stars { display: flex; gap: 4px; margin-bottom: 1.5rem; }
-        .review-text { font-size: 1.15rem; line-height: 1.8; color: var(--espresso); margin-bottom: 2rem; font-style: italic; font-family: var(--font-body); opacity: 0.9; }
-        .review-footer { display: flex; align-items: center; gap: 1rem; border-top: 1px solid rgba(107,58,31,0.08); padding-top: 1.8rem; }
-        .user-avatar { width: 50px; height: 50px; background: var(--brown); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-family: var(--font-heading); font-size: 1.2rem; }
-        .user-info { display: flex; flex-direction: column; line-height: 1.4; }
-        .user-info strong { color: var(--brown); font-size: 1.1rem; font-family: var(--font-heading); }
-        .user-info span { font-size: 0.9rem; opacity: 0.5; font-family: var(--font-body); }
+        .reviews-section .section-header { margin-bottom: 0; }
+        .google-review-cards { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 2rem) / 3); gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; margin: 2rem 0 0.75rem; padding: 0; list-style: none; text-align: left; }
+        .google-review-cards li { scroll-snap-align: start; background: white; border: 1px solid #eaded1; border-radius: 20px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+        .google-review-cards blockquote { margin: 0; flex: 1; }
+        .google-review-cards p { margin: 0; color: var(--brown); font-size: 0.9rem; }
+        .google-review-stars { color: #8a5100; letter-spacing: 0.12em; }
+        .review-browse { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .review-browse button { min-width: 44px; min-height: 44px; border: 1px solid var(--brown); border-radius: 50%; background: white; color: var(--brown); cursor: pointer; font-size: 1.25rem; }
+        @media (max-width: 768px) { .google-review-cards { grid-auto-columns: 86%; } }
+        .review-links { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.75rem 1.5rem; }
+        .review-links a { min-height: 44px; }
+        .review-write-link { display: inline-flex; align-items: center; color: var(--brown); font-weight: 700; text-decoration: underline; }
 
         /* Updated Visit v2 */
         .visit-section { padding: 120px 0; }
@@ -891,6 +843,27 @@ const LandingPage = () => {
         }
         .popup-divider span { font-size: 0.8rem; font-weight: 900; font-family: var(--font-heading); color: var(--brown); }
 
+        .mobile-order-actions { display: none; }
+        @media (max-width: 768px) {
+          .has-mobile-actions { overflow-x: clip; padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
+          .mobile-order-actions {
+            position: fixed; inset: auto 0 0; z-index: 999;
+            display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px;
+            padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+            background: #fdf6ec; border-top: 1px solid #e7d8c7;
+            box-shadow: 0 -4px 20px rgba(61, 43, 31, .12);
+          }
+          .mobile-order-actions > * {
+            display: grid; place-items: center; min-height: 48px; padding: 6px;
+            border: 1px solid #6b3a1f; border-radius: 9px;
+            font: inherit; font-weight: 800; text-align: center;
+            color: #6b3a1f; background: transparent; text-decoration: none;
+          }
+          .mobile-order-actions button { background: #6b3a1f; color: white; cursor: pointer; }
+          .has-mobile-actions .floating-whatsapp { bottom: calc(82px + env(safe-area-inset-bottom)); }
+          .has-mobile-actions .scroll-to-top { bottom: calc(204px + env(safe-area-inset-bottom)); }
+        }
+
         /* Floating WhatsApp */
         .floating-whatsapp {
           position: fixed;
@@ -907,6 +880,10 @@ const LandingPage = () => {
           text-decoration: none;
           transition: 0.25s ease;
         }
+        .floating-whatsapp.floating-call { bottom: 100px; }
+        .floating-whatsapp { width: 200px; justify-content: space-between; }
+        .scroll-to-top { bottom: 176px; }
+        @media (prefers-reduced-motion: reduce) { .floating-whatsapp .wa-icon { animation: none; } }
         .wa-label {
           color: var(--espresso);
           font-weight: 700;
@@ -942,6 +919,9 @@ const LandingPage = () => {
             bottom: 14px; 
             box-shadow: 0 10px 22px rgba(0,0,0,0.18);
           }
+          .floating-whatsapp { width: auto; }
+          .has-mobile-actions .floating-whatsapp.floating-call { bottom: calc(150px + env(safe-area-inset-bottom)); }
+          .has-mobile-actions .scroll-to-top { bottom: calc(218px + env(safe-area-inset-bottom)); }
           .wa-label { display: none; }
           .wa-icon {
             width: 46px;
@@ -966,12 +946,11 @@ const LandingPage = () => {
           .about-section, .gallery-section, .events-section, .visit-section, .reviews-section { padding: 60px 0; }
 
           /* Hero Mobile Fix */
-          .hero-section { min-height: calc(100svh - 68px); }
+          .hero-section { min-height: clamp(360px, 61svh, 560px); }
           .hero-bg-image { object-position: center; }
-          .hero-overlay { background: linear-gradient(180deg, rgba(15, 10, 6, 0.02) 0%, rgba(15, 10, 6, 0.46) 48%, rgba(15, 10, 6, 0.84) 100%); }
-          .hero-container { grid-template-columns: 1fr; gap: 2rem; padding-bottom: 6rem; }
+          .hero-overlay { background: linear-gradient(180deg, rgba(15, 10, 6, 0.02) 0%, rgba(15, 10, 6, 0.12) 52%, rgba(15, 10, 6, 0.84) 100%); }
+          .hero-container { grid-template-columns: 1fr; gap: 2rem; padding-bottom: 2rem; }
           .hero-headline { font-size: 1.9rem; line-height: 0.95; }
-          .hero-cta-group { justify-content: flex-start; }
 
           /* About Mobile */
           .about-grid { grid-template-columns: 1fr !important; gap: 3rem; text-align: center; }
@@ -1000,33 +979,13 @@ const LandingPage = () => {
           .g-info h4 { font-size: 1.45rem; }
 
 
-          /* Reviews Mobile - Swipeable Cards */
-          .reviews-grid { 
-            display: flex; 
-            overflow-x: auto; 
-            scroll-snap-type: x mandatory; 
-            gap: 1.25rem; 
-            margin: 0 -1.5rem;
-            padding: 1rem 1.5rem 3.5rem;
-            scrollbar-width: none; 
-          }
-          .reviews-grid::-webkit-scrollbar { display: none; }
-          .review-card { 
-            min-width: 285px; 
-            max-width: 285px;
-            flex: 0 0 auto; 
-            scroll-snap-align: center;
-            padding: 2.5rem 1.8rem 2rem;
-            border-radius: 30px;
-          }
-
           /* Events Mobile */
           .events-grid { grid-template-columns: 1fr !important; gap: 3.5rem; text-align: center; }
           .events-text { display: flex; flex-direction: column; align-items: center; }
-          .event-list { margin-top: 2.5rem; gap: 1.5rem; width: 100%; }
-          .event-item { flex-direction: column; text-align: center; gap: 1rem; padding-bottom: 2rem; }
-          .event-date { min-width: 85px; padding: 0.8rem; border-radius: 18px; margin: 0 auto; }
-          .event-info h3 { font-size: 1.5rem; margin-bottom: 0.4rem; }
+
+
+
+
           .events-img { height: 320px; border-radius: 30px; }
 
           /* Visit Mobile */
